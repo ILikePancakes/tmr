@@ -9,13 +9,12 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 public class WebContextInitializer implements WebApplicationInitializer {
+
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext)
             throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        // alternatively, could use context.register(MyConfiguration.class) and
-        // optionally @ComponentScan("my.package") on the configuration class
-        context.scan(WebContextInitializer.class.getPackage().getName());
+        context.register(AppConfiguration.class);
         servletContext.addListener(new ContextLoaderListener(context));
         registerServlet(servletContext);
     }
